@@ -15,6 +15,7 @@
 		7E6484331AC9173C008831FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E6484311AC9173C008831FE /* LaunchScreen.xib */; };
 		7E64843F1AC9173C008831FE /* LowFlyerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E64843E1AC9173C008831FE /* LowFlyerTests.swift */; };
 		7E64844A1AC918A9008831FE /* MagnetoMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6484491AC918A9008831FE /* MagnetoMeter.swift */; };
+		7ED86AFE1ACBC9B400057185 /* DatabaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED86AFD1ACBC9B400057185 /* DatabaseHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		7E64843D1AC9173C008831FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E64843E1AC9173C008831FE /* LowFlyerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowFlyerTests.swift; sourceTree = "<group>"; };
 		7E6484491AC918A9008831FE /* MagnetoMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagnetoMeter.swift; sourceTree = "<group>"; };
+		7ED86AFD1ACBC9B400057185 /* DatabaseHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 		7E6484481AC91759008831FE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7ED86AFD1ACBC9B400057185 /* DatabaseHelpers.swift */,
 				7E64842A1AC9173C008831FE /* ViewController.swift */,
 				7E6484491AC918A9008831FE /* MagnetoMeter.swift */,
 			);
@@ -230,6 +233,7 @@
 				7E64844A1AC918A9008831FE /* MagnetoMeter.swift in Sources */,
 				7E6484261AC9173C008831FE /* AppDelegate.swift in Sources */,
 				7E6484291AC9173C008831FE /* LowFlyer.xcdatamodeld in Sources */,
+				7ED86AFE1ACBC9B400057185 /* DatabaseHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +427,7 @@
 				7E6484441AC9173C008831FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7E6484451AC9173C008831FE /* Build configuration list for PBXNativeTarget "LowFlyerTests" */ = {
 			isa = XCConfigurationList;
@@ -431,6 +436,7 @@
 				7E6484471AC9173C008831FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

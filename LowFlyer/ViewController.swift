@@ -8,16 +8,29 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MagnetoUpdateDelegate {
+        
+    @IBOutlet weak var magneticAmplitude: UILabel!
+    
+    let magneto = MagnetoMeter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        magneto.delegate = self
+        magneto.startMonitoring()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func didUpdateMagneticField() {
+        magneticAmplitude?.text = magneto.magnitude.description
+        println("magnitude \(magneto.magnitude.description)")
+        
     }
 
 
