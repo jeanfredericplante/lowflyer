@@ -32,7 +32,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" misplaced="YES" text="Amplitude:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geS-mt-KRW">
                                         <rect key="frame" x="8" y="37" width="83" height="25"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="50 uT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JrT-lh-mSh">
@@ -41,16 +41,45 @@
                                             <constraint firstAttribute="width" constant="80" id="e1F-2R-XXU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Number of samples:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oXM-5Q-iD6">
+                                        <rect key="frame" x="8" y="70" width="155" height="21"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iET-bj-I9T">
+                                        <rect key="frame" x="171" y="70" width="63" height="21"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxK-5B-f9t">
+                                        <rect key="frame" x="505" y="8" width="87" height="30"/>
+                                        <state key="normal" title="Save to CSV">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="emailData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YNq-iF-f9x"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="leading" secondItem="RLK-2y-npx" secondAttribute="leadingMargin" id="4nM-kZ-TCZ"/>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="leading" id="BNR-Kv-lNd"/>
                                     <constraint firstItem="JrT-lh-mSh" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="trailing" constant="8" id="FJi-Gd-rwO"/>
+                                    <constraint firstItem="gxK-5B-f9t" firstAttribute="top" secondItem="QPP-Rj-GPQ" secondAttribute="top" id="Iey-Fh-4lt"/>
+                                    <constraint firstAttribute="bottom" secondItem="gxK-5B-f9t" secondAttribute="bottom" constant="97" id="MGu-x1-uQS"/>
+                                    <constraint firstItem="oXM-5Q-iD6" firstAttribute="baseline" secondItem="iET-bj-I9T" secondAttribute="baseline" id="MIc-rA-tpb"/>
+                                    <constraint firstItem="iET-bj-I9T" firstAttribute="leading" secondItem="oXM-5Q-iD6" secondAttribute="trailing" constant="8" symbolic="YES" id="V7T-Sl-yzx"/>
+                                    <constraint firstItem="oXM-5Q-iD6" firstAttribute="top" secondItem="geS-mt-KRW" secondAttribute="bottom" constant="8" symbolic="YES" id="X0z-Ex-Cou"/>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="top" secondItem="RLK-2y-npx" secondAttribute="topMargin" id="Zoq-A6-qvt"/>
+                                    <constraint firstItem="gxK-5B-f9t" firstAttribute="top" secondItem="RLK-2y-npx" secondAttribute="topMargin" id="Zu6-cE-nTW"/>
+                                    <constraint firstItem="gxK-5B-f9t" firstAttribute="trailing" secondItem="RLK-2y-npx" secondAttribute="trailingMargin" id="dBL-WP-ZlD"/>
+                                    <constraint firstItem="oXM-5Q-iD6" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="leading" id="ePr-b6-68w"/>
                                     <constraint firstItem="geS-mt-KRW" firstAttribute="top" secondItem="QPP-Rj-GPQ" secondAttribute="bottom" constant="8" id="oaf-JK-iNA"/>
                                     <constraint firstItem="JrT-lh-mSh" firstAttribute="centerY" secondItem="geS-mt-KRW" secondAttribute="centerY" id="zIS-xe-UVE"/>
                                 </constraints>
@@ -66,6 +95,7 @@
                     </view>
                     <connections>
                         <outlet property="magneticAmplitude" destination="JrT-lh-mSh" id="4OM-5x-fIt"/>
+                        <outlet property="numberOfSamples" destination="iET-bj-I9T" id="TSq-7i-9wu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -42,7 +42,7 @@ class MagnetoMeter : NSObject {
                 self.magneticField[0] = data.magneticField.x
                 self.magneticField[1] = data.magneticField.y
                 self.magneticField[2] = data.magneticField.z
-                self.saveMagnitude(self.magnitude)
+//                self.saveMagnitude(self.magnitude)
                 dispatch_async(dispatch_get_main_queue()) {
                     if let d = self.delegate {
                         d.didUpdateMagneticField()
