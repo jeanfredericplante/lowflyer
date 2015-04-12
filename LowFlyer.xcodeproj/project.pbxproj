@@ -14,7 +14,7 @@
 		7E6484301AC9173C008831FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E64842F1AC9173C008831FE /* Images.xcassets */; };
 		7E6484331AC9173C008831FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E6484311AC9173C008831FE /* LaunchScreen.xib */; };
 		7E64843F1AC9173C008831FE /* LowFlyerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E64843E1AC9173C008831FE /* LowFlyerTests.swift */; };
-		7E64844A1AC918A9008831FE /* MagnetoMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6484491AC918A9008831FE /* MagnetoMeter.swift */; };
+		7E64844A1AC918A9008831FE /* ZipperMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6484491AC918A9008831FE /* ZipperMeter.swift */; };
 		7ED55DBC1AD63C5400B4A903 /* MeasurementSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED55DBB1AD63C5400B4A903 /* MeasurementSamples.swift */; };
 		7ED55DBE1AD64CFC00B4A903 /* EmailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED55DBD1AD64CFC00B4A903 /* EmailComposer.swift */; };
 		7ED86AFE1ACBC9B400057185 /* DatabaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED86AFD1ACBC9B400057185 /* DatabaseHelpers.swift */; };
@@ -42,7 +42,7 @@
 		7E6484381AC9173C008831FE /* LowFlyerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LowFlyerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E64843D1AC9173C008831FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E64843E1AC9173C008831FE /* LowFlyerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowFlyerTests.swift; sourceTree = "<group>"; };
-		7E6484491AC918A9008831FE /* MagnetoMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagnetoMeter.swift; sourceTree = "<group>"; };
+		7E6484491AC918A9008831FE /* ZipperMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipperMeter.swift; sourceTree = "<group>"; };
 		7ED55DBB1AD63C5400B4A903 /* MeasurementSamples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementSamples.swift; sourceTree = "<group>"; };
 		7ED55DBD1AD64CFC00B4A903 /* EmailComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailComposer.swift; sourceTree = "<group>"; };
 		7ED86AFD1ACBC9B400057185 /* DatabaseHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelpers.swift; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 				7ED55DBB1AD63C5400B4A903 /* MeasurementSamples.swift */,
 				7ED55DBD1AD64CFC00B4A903 /* EmailComposer.swift */,
 				7E64842A1AC9173C008831FE /* ViewController.swift */,
-				7E6484491AC918A9008831FE /* MagnetoMeter.swift */,
+				7E6484491AC918A9008831FE /* ZipperMeter.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -236,7 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E64842B1AC9173C008831FE /* ViewController.swift in Sources */,
-				7E64844A1AC918A9008831FE /* MagnetoMeter.swift in Sources */,
+				7E64844A1AC918A9008831FE /* ZipperMeter.swift in Sources */,
 				7ED55DBC1AD63C5400B4A903 /* MeasurementSamples.swift in Sources */,
 				7ED55DBE1AD64CFC00B4A903 /* EmailComposer.swift in Sources */,
 				7E6484261AC9173C008831FE /* AppDelegate.swift in Sources */,

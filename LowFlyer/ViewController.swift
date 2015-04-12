@@ -8,27 +8,49 @@
 
 import UIKit
 
-class ViewController: UIViewController, MagnetoUpdateDelegate {
-        
+class ViewController: UIViewController, ZipperUpdateDelegate {
+    
+    enum StateSegments: Int {
+        case Open = 0
+        case Close = 1
+    }
+
+    
     @IBOutlet weak var magneticAmplitude: UILabel!
     
     @IBOutlet weak var numberOfSamples: UILabel!
      struct Constants {
-        static let maxSamples = 1000
+        static let maxSamples = 1024
     }
     
     @IBAction func emailData(sender: AnyObject) {
-        emailCSVData("magneto.csv")
+        var filename: String = "samples.csv"
+        if let openClose = StateSegments(rawValue: zipperState.selectedSegmentIndex) {
+            switch openClose {
+            case .Open:
+                filename = "samples_open.csv"
+            case .Close:
+                filename = "samples_close.csv"
+            }
+        }
+        emailCSVData(filename)
     }
         
+    @IBAction func clearData(sender: AnyObject) {
+        zipperSamples.clear()
+    }
+    
+    @IBOutlet weak var zipperState: UISegmentedControl!
+    
     let mailVC = EmailComposer()
-    let magneto = MagnetoMeter()
-    var magneticSamples = MeasurementSamples(maxSamples: Constants.maxSamples)
+    let zipper = ZipperMeter()
+    var zipperSamples = MeasurementSamples(maxSamples: Constants.maxSamples)
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        magneto.delegate = self
-        magneto.startMonitoring()
+        zipper.delegate = self
+        zipper.startMonitoring()
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -39,23 +61,28 @@ class ViewController: UIViewController, MagnetoUpdateDelegate {
     }
     
     func didUpdateMagneticField() {
-        magneticAmplitude?.text = magneto.magnitude.description
-        magneticSamples.add(magneto.magnitude)
-        numberOfSamples.text = magneticSamples.count.description
-        println("magnitude \(magneto.magnitude.description)")
+        magneticAmplitude?.text = zipper.magneticAmplitude.description
+        zipperSamples.add(zipper.measurementRow)
+        numberOfSamples.text = zipperSamples.count.description
+        println("magnitude updated at  \(zipper.magneticSampleTime)")
         
     }
     
+    func didUpdateAccelerationField() {
+        println("Acc updated at \(zipper.accelerationSampleTime)")
+    }
+    
     func emailCSVData(filename: String) {
-        var csv = magneticSamples.samplesAsCSVString()
+        var csv = zipperSamples.samplesAsCSVString()
         var error: NSError? = nil
-        if let filepath = filePath(filename) {
+        if let filepath = filePath(filename) as? String {
             csv.writeToFile(filepath, atomically: true, encoding: NSUTF8StringEncoding, error: &error)
             println("data saved to file")
             
             if error == nil {
                 let configuredMailVC = mailVC.configuredMailComposeViewController()
-                configuredMailVC.addAttachmentData(NSData.dataWithContentsOfMappedFile(filepath) as NSData , mimeType: "text/csv", fileName: filename)
+                configuredMailVC.addAttachmentData(NSData.dataWithContentsOfMappedFile(filepath) as?
+                    NSData , mimeType: "text/csv", fileName: filename)
                 presentViewController(configuredMailVC, animated: true, completion: nil)
             }
         }

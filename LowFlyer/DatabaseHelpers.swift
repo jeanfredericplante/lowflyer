@@ -22,8 +22,7 @@ func saveToDisk(managedObjectContext: NSManagedObjectContext?) {
 }
 
 func getManagedObjectContext() -> NSManagedObjectContext? {
-    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-    if let managedObjectContext = appDelegate.managedObjectContext {
+    if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate, managedObjectContext = appDelegate.managedObjectContext {
         return managedObjectContext
     }
     else {

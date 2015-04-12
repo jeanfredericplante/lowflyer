@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RLK-2y-npx">
-                                <rect key="frame" x="0.0" y="20" width="600" height="135"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLK-2y-npx">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Magnetometer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPP-Rj-GPQ">
                                         <rect key="frame" x="8" y="8" width="211" height="21"/>
@@ -56,8 +56,11 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxK-5B-f9t">
-                                        <rect key="frame" x="505" y="8" width="87" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxK-5B-f9t">
+                                        <rect key="frame" x="463" y="484" width="123" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="123" id="Gxn-nx-ilt"/>
+                                        </constraints>
                                         <state key="normal" title="Save to CSV">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -65,22 +68,45 @@
                                             <action selector="emailData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YNq-iF-f9x"/>
                                         </connections>
                                     </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PSG-Eo-e7j">
+                                        <rect key="frame" x="8" y="522" width="584" height="51"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="8em-l8-cq4"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Open"/>
+                                            <segment title="Close"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SiS-lZ-xav">
+                                        <rect key="frame" x="456" y="8" width="136" height="30"/>
+                                        <state key="normal" title="Clear Samples">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clearData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qXW-eU-EjH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="leading" secondItem="RLK-2y-npx" secondAttribute="leadingMargin" id="4nM-kZ-TCZ"/>
+                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="top" secondItem="QPP-Rj-GPQ" secondAttribute="top" id="8tZ-BM-9PQ"/>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="leading" id="BNR-Kv-lNd"/>
+                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="trailing" secondItem="PSG-Eo-e7j" secondAttribute="trailing" id="C0a-As-16i"/>
                                     <constraint firstItem="JrT-lh-mSh" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="trailing" constant="8" id="FJi-Gd-rwO"/>
-                                    <constraint firstItem="gxK-5B-f9t" firstAttribute="top" secondItem="QPP-Rj-GPQ" secondAttribute="top" id="Iey-Fh-4lt"/>
-                                    <constraint firstAttribute="bottom" secondItem="gxK-5B-f9t" secondAttribute="bottom" constant="97" id="MGu-x1-uQS"/>
+                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="centerX" secondItem="gxK-5B-f9t" secondAttribute="centerX" id="JdP-kI-kNh"/>
                                     <constraint firstItem="oXM-5Q-iD6" firstAttribute="baseline" secondItem="iET-bj-I9T" secondAttribute="baseline" id="MIc-rA-tpb"/>
                                     <constraint firstItem="iET-bj-I9T" firstAttribute="leading" secondItem="oXM-5Q-iD6" secondAttribute="trailing" constant="8" symbolic="YES" id="V7T-Sl-yzx"/>
                                     <constraint firstItem="oXM-5Q-iD6" firstAttribute="top" secondItem="geS-mt-KRW" secondAttribute="bottom" constant="8" symbolic="YES" id="X0z-Ex-Cou"/>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="top" secondItem="RLK-2y-npx" secondAttribute="topMargin" id="Zoq-A6-qvt"/>
-                                    <constraint firstItem="gxK-5B-f9t" firstAttribute="top" secondItem="RLK-2y-npx" secondAttribute="topMargin" id="Zu6-cE-nTW"/>
-                                    <constraint firstItem="gxK-5B-f9t" firstAttribute="trailing" secondItem="RLK-2y-npx" secondAttribute="trailingMargin" id="dBL-WP-ZlD"/>
+                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="leading" secondItem="oXM-5Q-iD6" secondAttribute="leading" id="bXK-lt-194"/>
+                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="top" secondItem="gxK-5B-f9t" secondAttribute="bottom" constant="8" symbolic="YES" id="cTa-zh-MKt"/>
                                     <constraint firstItem="oXM-5Q-iD6" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="leading" id="ePr-b6-68w"/>
+                                    <constraint firstAttribute="trailing" secondItem="gxK-5B-f9t" secondAttribute="trailing" constant="14" id="hh1-jq-PiN"/>
+                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="bottom" secondItem="RLK-2y-npx" secondAttribute="bottomMargin" id="oBa-9f-J9T"/>
                                     <constraint firstItem="geS-mt-KRW" firstAttribute="top" secondItem="QPP-Rj-GPQ" secondAttribute="bottom" constant="8" id="oaf-JK-iNA"/>
+                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="trailing" secondItem="RLK-2y-npx" secondAttribute="trailingMargin" id="r36-uG-6ce"/>
                                     <constraint firstItem="JrT-lh-mSh" firstAttribute="centerY" secondItem="geS-mt-KRW" secondAttribute="centerY" id="zIS-xe-UVE"/>
                                 </constraints>
                             </view>
@@ -89,13 +115,14 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="RLK-2y-npx" secondAttribute="trailing" id="Jsa-Tj-nQ4"/>
                             <constraint firstItem="RLK-2y-npx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SAr-FM-OPH"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RLK-2y-npx" secondAttribute="bottom" constant="379" id="fx1-YY-vxO"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RLK-2y-npx" secondAttribute="bottom" id="fx1-YY-vxO"/>
                             <constraint firstItem="RLK-2y-npx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="kTa-UA-ypb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="magneticAmplitude" destination="JrT-lh-mSh" id="4OM-5x-fIt"/>
                         <outlet property="numberOfSamples" destination="iET-bj-I9T" id="TSq-7i-9wu"/>
+                        <outlet property="zipperState" destination="PSG-Eo-e7j" id="XYI-qY-6lc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
