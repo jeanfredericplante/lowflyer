@@ -42,9 +42,9 @@ class MeasurementSamples {
     }
     
     func samplesAsCSVString() -> String {
-        var rows = samples.map({self.combineToString($0, with_separator: ";")})
-        var row_columns = combineToString(rows, with_separator:",")
-        let header = "tm;ma;mx;my;mz;ta;aa;ax;ay;az,"
+        var rows = samples.map({self.combineToString($0, with_separator: ",")})
+        var row_columns = combineToString(rows, with_separator:"\n")
+        let header = "tm,ma,mx,my,mz,ta,aa,ax,ay,az\n"
         return header + row_columns
     }
     

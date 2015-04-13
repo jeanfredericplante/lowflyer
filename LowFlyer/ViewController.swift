@@ -28,9 +28,9 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
         if let openClose = StateSegments(rawValue: zipperState.selectedSegmentIndex) {
             switch openClose {
             case .Open:
-                filename = "samples_open.csv"
+                filename = "samples_open.txt"
             case .Close:
-                filename = "samples_close.csv"
+                filename = "samples_close.txt"
             }
         }
         emailCSVData(filename)

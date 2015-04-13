@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -61,6 +63,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="123" id="Gxn-nx-ilt"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <state key="normal" title="Save to CSV">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -68,21 +71,24 @@
                                             <action selector="emailData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YNq-iF-f9x"/>
                                         </connections>
                                     </button>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PSG-Eo-e7j">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="PSG-Eo-e7j">
                                         <rect key="frame" x="8" y="522" width="584" height="51"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="8em-l8-cq4"/>
+                                            <constraint firstAttribute="height" constant="50" id="SQ5-07-8sn"/>
                                         </constraints>
                                         <segments>
                                             <segment title="Open"/>
                                             <segment title="Close"/>
                                         </segments>
                                     </segmentedControl>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SiS-lZ-xav">
-                                        <rect key="frame" x="456" y="8" width="136" height="30"/>
-                                        <state key="normal" title="Clear Samples">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SiS-lZ-xav">
+                                        <rect key="frame" x="8" y="484" width="136" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="136" id="gMG-Hy-OGh"/>
+                                            <constraint firstAttribute="height" constant="30" id="oMC-r5-qvO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <state key="normal" title="Clear Samples"/>
                                         <connections>
                                             <action selector="clearData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qXW-eU-EjH"/>
                                         </connections>
@@ -91,22 +97,23 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="leading" secondItem="RLK-2y-npx" secondAttribute="leadingMargin" id="4nM-kZ-TCZ"/>
-                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="top" secondItem="QPP-Rj-GPQ" secondAttribute="top" id="8tZ-BM-9PQ"/>
+                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="trailing" secondItem="RLK-2y-npx" secondAttribute="trailingMargin" id="5nG-OU-4vG"/>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="leading" id="BNR-Kv-lNd"/>
-                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="trailing" secondItem="PSG-Eo-e7j" secondAttribute="trailing" id="C0a-As-16i"/>
                                     <constraint firstItem="JrT-lh-mSh" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="trailing" constant="8" id="FJi-Gd-rwO"/>
-                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="centerX" secondItem="gxK-5B-f9t" secondAttribute="centerX" id="JdP-kI-kNh"/>
+                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="baseline" secondItem="gxK-5B-f9t" secondAttribute="firstBaseline" id="GGl-Yl-MeQ"/>
                                     <constraint firstItem="oXM-5Q-iD6" firstAttribute="baseline" secondItem="iET-bj-I9T" secondAttribute="baseline" id="MIc-rA-tpb"/>
+                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="leading" secondItem="SiS-lZ-xav" secondAttribute="leading" id="R9q-gQ-Bxn"/>
                                     <constraint firstItem="iET-bj-I9T" firstAttribute="leading" secondItem="oXM-5Q-iD6" secondAttribute="trailing" constant="8" symbolic="YES" id="V7T-Sl-yzx"/>
                                     <constraint firstItem="oXM-5Q-iD6" firstAttribute="top" secondItem="geS-mt-KRW" secondAttribute="bottom" constant="8" symbolic="YES" id="X0z-Ex-Cou"/>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="top" secondItem="RLK-2y-npx" secondAttribute="topMargin" id="Zoq-A6-qvt"/>
-                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="leading" secondItem="oXM-5Q-iD6" secondAttribute="leading" id="bXK-lt-194"/>
-                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="top" secondItem="gxK-5B-f9t" secondAttribute="bottom" constant="8" symbolic="YES" id="cTa-zh-MKt"/>
+                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="bottom" secondItem="RLK-2y-npx" secondAttribute="bottomMargin" id="brt-sK-RKb"/>
                                     <constraint firstItem="oXM-5Q-iD6" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="leading" id="ePr-b6-68w"/>
+                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="top" secondItem="gxK-5B-f9t" secondAttribute="top" id="eWU-KL-gH8"/>
+                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="leading" secondItem="oXM-5Q-iD6" secondAttribute="leading" id="fiS-L4-VOK"/>
                                     <constraint firstAttribute="trailing" secondItem="gxK-5B-f9t" secondAttribute="trailing" constant="14" id="hh1-jq-PiN"/>
-                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="bottom" secondItem="RLK-2y-npx" secondAttribute="bottomMargin" id="oBa-9f-J9T"/>
+                                    <constraint firstItem="PSG-Eo-e7j" firstAttribute="top" secondItem="SiS-lZ-xav" secondAttribute="bottom" constant="8" symbolic="YES" id="kQf-oN-4Yf"/>
                                     <constraint firstItem="geS-mt-KRW" firstAttribute="top" secondItem="QPP-Rj-GPQ" secondAttribute="bottom" constant="8" id="oaf-JK-iNA"/>
-                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="trailing" secondItem="RLK-2y-npx" secondAttribute="trailingMargin" id="r36-uG-6ce"/>
+                                    <constraint firstItem="SiS-lZ-xav" firstAttribute="firstBaseline" secondItem="gxK-5B-f9t" secondAttribute="baseline" id="v4m-EG-chb"/>
                                     <constraint firstItem="JrT-lh-mSh" firstAttribute="centerY" secondItem="geS-mt-KRW" secondAttribute="centerY" id="zIS-xe-UVE"/>
                                 </constraints>
                             </view>
