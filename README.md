@@ -1,6 +1,6 @@
-# Low Flyer
+# Low Flyer: an open zipper detector
 Finally, science made useful!
-Low Flyer is an open zipper app detector. It is based on the magnetometer and accelerometer data of your iphone.
+Low Flyer is an open zipper detector app. It is based on the magnetometer and accelerometer data of your iphone.
 Based on inductance variation from your zipper, and detection of walking pattern based on the accelerometer, the app (intent) is to differentiate based on the amplitude of inductance variation an opened zipper from a closed zipper - and warn you with a soothing Siri voice that your zipper is opened. Timeliness of the warning is an in app purchase.
 
 # Analysis
