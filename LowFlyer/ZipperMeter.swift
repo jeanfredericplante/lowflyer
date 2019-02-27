@@ -18,60 +18,60 @@ protocol ZipperUpdateDelegate {
 class ZipperMeter : NSObject {
     
     struct Params {
-        static let samplingTime: NSTimeInterval = 0.03
+        static let samplingTime: TimeInterval = 0.03
     }
     
     var delegate: ZipperUpdateDelegate?
     var magneticAmplitude: Double {
         get {
-            return vectorAmplitude(magneticField)
+            return vectorAmplitude(vec: magneticField)
         }
     }
     var accelerationAmplitude: Double {
         get {
-            return vectorAmplitude(accelerationField)
+            return vectorAmplitude(vec: accelerationField)
         }
     }
-    var magneticField: [Double] = Array(count: 3, repeatedValue: 0)
-    var magneticSampleTime: NSTimeInterval = 0
-    var accelerationSampleTime: NSTimeInterval = 0
-    var accelerationField: [Double] = Array(count: 3, repeatedValue: 0)
+    var magneticField: [Double] = Array(repeating: 0, count: 3)
+    var magneticSampleTime: TimeInterval = 0
+    var accelerationSampleTime: TimeInterval = 0
+    var accelerationField: [Double] = Array(repeating: 0, count: 3)
     var magnitudeHistory = [NSManagedObject]()
     let motionManager = AppDelegate.Motion.Manager
-    let motionQueue = NSOperationQueue()
+    let motionQueue = OperationQueue()
     
 
     
     func isAvailable() -> Bool {
-        return motionManager.magnetometerAvailable && motionManager.accelerometerAvailable
+        return motionManager.isMagnetometerAvailable && motionManager.isAccelerometerAvailable
     }
     
     func startMonitoring() -> Void {
-        if motionManager.magnetometerAvailable {
+        if motionManager.isMagnetometerAvailable {
             motionManager.magnetometerUpdateInterval = Params.samplingTime
-            motionManager.startMagnetometerUpdatesToQueue(motionQueue, withHandler:
+            motionManager.startMagnetometerUpdates(to: motionQueue, withHandler:
                 {(data: CMMagnetometerData!, error: NSError!) in
                     // TODO: handle error case
                     self.magneticField[0] = data.magneticField.x
                     self.magneticField[1] = data.magneticField.y
                     self.magneticField[2] = data.magneticField.z
                     self.magneticSampleTime = data.timestamp
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         if let d = self.delegate {
                             d.didUpdateMagneticField()
                         }
                     }
-            })
+                    } as! CMMagnetometerHandler)
         }
-        if motionManager.accelerometerAvailable {
+        if motionManager.isAccelerometerAvailable {
             motionManager.accelerometerUpdateInterval = Params.samplingTime
-            motionManager.startAccelerometerUpdatesToQueue(motionQueue) { (data, error) -> Void in
-                self.accelerationField[0] = data.acceleration.x
-                self.accelerationField[1] = data.acceleration.y
-                self.accelerationField[2] = data.acceleration.z
-                self.accelerationSampleTime = data.timestamp
+            motionManager.startAccelerometerUpdates(to: motionQueue) { (data, error) -> Void in
+                self.accelerationField[0] = data?.acceleration.x ?? 0
+                self.accelerationField[1] = data?.acceleration.y ?? 0
+                self.accelerationField[2] = data?.acceleration.z ?? 0
+                self.accelerationSampleTime = data?.timestamp ?? 0
 
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     if let d = self.delegate {
                         d.didUpdateAccelerationField()
                     }
@@ -88,11 +88,11 @@ class ZipperMeter : NSObject {
         // mag amplitude, mag x, mag y, mag z
         get {
             var row1 = self.magneticField
-            row1.insert(self.magneticAmplitude, atIndex: 0)
-            row1.insert(magneticSampleTime, atIndex: 0)
+            row1.insert(self.magneticAmplitude, at: 0)
+            row1.insert(magneticSampleTime, at: 0)
             var row2 = self.accelerationField
-            row2.insert(self.accelerationAmplitude, atIndex: 0)
-            row2.insert(accelerationSampleTime, atIndex: 0)
+            row2.insert(self.accelerationAmplitude, at: 0)
+            row2.insert(accelerationSampleTime, at: 0)
             row1 += row2
             return row1
         }

@@ -33,7 +33,7 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
                 filename = "samples_close.txt"
             }
         }
-        emailCSVData(filename)
+        emailCSVData(filename: filename)
     }
         
     @IBAction func clearData(sender: AnyObject) {
@@ -62,7 +62,7 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
     
     func didUpdateMagneticField() {
         magneticAmplitude?.text = zipper.magneticAmplitude.description
-        zipperSamples.add(zipper.measurementRow)
+        zipperSamples.add(value: zipper.measurementRow)
         numberOfSamples.text = zipperSamples.count.description
         println("magnitude updated at  \(zipper.magneticSampleTime)")
         
@@ -75,7 +75,7 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
     func emailCSVData(filename: String) {
         var csv = zipperSamples.samplesAsCSVString()
         var error: NSError? = nil
-        if let filepath = filePath(filename) as? String {
+        if let filepath = filePath(filename: filename) as? String {
             csv.writeToFile(filepath, atomically: true, encoding: NSUTF8StringEncoding, error: &error)
             println("data saved to file")
             
@@ -83,14 +83,14 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
                 let configuredMailVC = mailVC.configuredMailComposeViewController()
                 configuredMailVC.addAttachmentData(NSData.dataWithContentsOfMappedFile(filepath) as?
                     NSData , mimeType: "text/csv", fileName: filename)
-                presentViewController(configuredMailVC, animated: true, completion: nil)
+                present(configuredMailVC, animated: true, completion: nil)
             }
         }
         
     }
     
     func filePath(filename: String) -> NSString? {
-        return NSTemporaryDirectory().stringByAppendingString("\(filename)")
+        return NSTemporaryDirectory().stringByAppendingFormat("\(filename)")
     }
 
 
