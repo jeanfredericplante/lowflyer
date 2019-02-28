@@ -99,7 +99,8 @@ class ZipperMeter : NSObject {
     }
     
     private func vectorAmplitude(vec: [Double]) -> Double {
-        return sqrt(vec.reduce(0, combine: {$0 + $1*$1}))
+        return sqrt(vec.reduce(0, {$0 + $1*$1}))
+
     }
     
      
