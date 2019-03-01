@@ -42,13 +42,13 @@ class MeasurementSamples {
     }
     
     func samplesAsCSVString() -> String {
-        var rows = samples.map({self.combineToString(a: $0, with_separator: ",")})
-        var row_columns = combineToString(rows, with_separator:"\n")
+        let rows = samples.map({self.combineToString(a: $0, with_separator: ",")})
+        let row_columns = rows.joined(separator: "\n")
         let header = "tm,ma,mx,my,mz,ta,aa,ax,ay,az\n"
         return header + row_columns
     }
     
-    func combineToString(a: Array<AnyObject>, with_separator s: String) -> String {
+    func combineToString(a: Array<Double>, with_separator s: String) -> String {
         let csv_row = a.map({"\($0)"}).joined(separator: s)
         return csv_row
     }
