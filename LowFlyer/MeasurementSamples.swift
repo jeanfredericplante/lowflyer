@@ -49,12 +49,8 @@ class MeasurementSamples {
     }
     
     func combineToString(a: Array<AnyObject>, with_separator s: String) -> String {
-//        let sep_length  = count(s)         // for some reason count(s) won't compile
-        let sep_length = 1
-        var combined = a.reduce("", combine: {"\($0)"+s+"\($1)"})
-        let range = combined.startIndex..<advance(combined.startIndex, sep_length)
-        combined.removeRange(range)
-        return combined
+        let csv_row = a.map({"\($0)"}).joined(separator: s)
+        return csv_row
     }
    
     
