@@ -64,33 +64,33 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
         magneticAmplitude?.text = zipper.magneticAmplitude.description
         zipperSamples.add(value: zipper.measurementRow)
         numberOfSamples.text = zipperSamples.count.description
-        println("magnitude updated at  \(zipper.magneticSampleTime)")
+        print("magnitude updated at  \(zipper.magneticSampleTime)")
         
     }
     
     func didUpdateAccelerationField() {
-        println("Acc updated at \(zipper.accelerationSampleTime)")
+        print("Acc updated at \(zipper.accelerationSampleTime)")
     }
     
     func emailCSVData(filename: String) {
-        var csv = zipperSamples.samplesAsCSVString()
-        var error: NSError? = nil
-        if let filepath = filePath(filename: filename) as? String {
-            csv.writeToFile(filepath, atomically: true, encoding: NSUTF8StringEncoding, error: &error)
-            println("data saved to file")
-            
-            if error == nil {
+        let csv = zipperSamples.samplesAsCSVString()
+        if let filepath = filePath(filename: filename) as String? {
+            do {
+                try csv.write(toFile: filepath, atomically: true, encoding: String.Encoding.utf8)
+                print("data saved to file")
                 let configuredMailVC = mailVC.configuredMailComposeViewController()
                 configuredMailVC.addAttachmentData(NSData.dataWithContentsOfMappedFile(filepath) as?
-                    NSData , mimeType: "text/csv", fileName: filename)
+                    NSData as! Data , mimeType: "text/csv", fileName: filename)
                 present(configuredMailVC, animated: true, completion: nil)
+            } catch {
+               print("error writing to file")
             }
         }
         
     }
     
     func filePath(filename: String) -> NSString? {
-        return NSTemporaryDirectory().stringByAppendingFormat("\(filename)")
+        return NSTemporaryDirectory().appendingFormat("\(filename)") as NSString
     }
 
 
