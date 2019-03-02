@@ -50,18 +50,28 @@ class ZipperMeter : NSObject {
         if motionManager.isMagnetometerAvailable {
             motionManager.magnetometerUpdateInterval = Params.samplingTime
             motionManager.startMagnetometerUpdates(to: motionQueue, withHandler:
-                {(data: CMMagnetometerData!, error: NSError!) in
-                    // TODO: handle error case
-                    self.magneticField[0] = data.magneticField.x
-                    self.magneticField[1] = data.magneticField.y
-                    self.magneticField[2] = data.magneticField.z
-                    self.magneticSampleTime = data.timestamp
-                    DispatchQueue.main.async {
-                        if let d = self.delegate {
-                            d.didUpdateMagneticField()
-                        }
+                {(data, error) in
+                    guard error == nil else {
+                        print(error!)
+                        return
                     }
-                    } as! CMMagnetometerHandler)
+                    if self.motionManager.isMagnetometerActive {
+                        if let data = data {
+                            // TODO: handle error case
+                            self.magneticField[0] = data.magneticField.x
+                            self.magneticField[1] = data.magneticField.y
+                            self.magneticField[2] = data.magneticField.z
+                            self.magneticSampleTime = data.timestamp
+                            DispatchQueue.main.async {
+                                if let d = self.delegate {
+                                    d.didUpdateMagneticField()
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+            })
         }
         if motionManager.isAccelerometerAvailable {
             motionManager.accelerometerUpdateInterval = Params.samplingTime
