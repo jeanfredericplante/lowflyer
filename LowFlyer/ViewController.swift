@@ -23,21 +23,22 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
         static let maxSamples = 1024
     }
     
-    @IBAction func emailData(sender: AnyObject) {
+    @IBAction func emailData(_ sender: Any) {
         var filename: String = "samples.csv"
         if let openClose = StateSegments(rawValue: zipperState.selectedSegmentIndex) {
             switch openClose {
             case .Open:
-                filename = "samples_open.txt"
+                filename = "samples_open.csv"
             case .Close:
-                filename = "samples_close.txt"
+                filename = "samples_close.csv"
             }
         }
         emailCSVData(filename: filename)
     }
         
-    @IBAction func clearData(sender: AnyObject) {
+    @IBAction func clearData(_ sender: Any) {
         zipperSamples.clear()
+
     }
     
     @IBOutlet weak var zipperState: UISegmentedControl!

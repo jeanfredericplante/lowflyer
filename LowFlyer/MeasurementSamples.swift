@@ -10,7 +10,7 @@ import Foundation
 
 class MeasurementSamples {
     
-    var maxSamples = 1024
+    var maxSamples = 16384
     var samples = [[Double]]()
     var count: Int {
         get {

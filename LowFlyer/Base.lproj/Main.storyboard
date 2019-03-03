@@ -70,7 +70,7 @@
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="emailData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YNq-iF-f9x"/>
+                                            <action selector="emailData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AAd-xJ-Y3Z"/>
                                         </connections>
                                     </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="PSG-Eo-e7j">
@@ -92,7 +92,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <state key="normal" title="Clear Samples"/>
                                         <connections>
-                                            <action selector="clearData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qXW-eU-EjH"/>
+                                            <action selector="clearData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FbI-vl-cli"/>
                                         </connections>
                                     </button>
                                 </subviews>
