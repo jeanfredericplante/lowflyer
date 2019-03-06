@@ -9,12 +9,18 @@
 import UIKit
 
 class ViewController: UIViewController, ZipperUpdateDelegate {
+    let documentInteractionController = UIDocumentInteractionController()
+
     
-    enum StateSegments: Int {
+    enum ZipperStateSegments: Int {
         case Open = 0
         case Close = 1
     }
 
+    enum WalkingStateSegments: Int {
+        case Walking = 0
+        case Still = 1
+    }
     
     @IBOutlet weak var magneticAmplitude: UILabel!
     
@@ -24,38 +30,50 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
     }
     
     @IBAction func emailData(_ sender: Any) {
-        var filename: String = "samples.csv"
-        if let openClose = StateSegments(rawValue: zipperState.selectedSegmentIndex) {
-            switch openClose {
-            case .Open:
-                filename = "samples_open.csv"
-            case .Close:
-                filename = "samples_close.csv"
+        var filename: String = ""
+        if let openClose = ZipperStateSegments(rawValue: zipperState.selectedSegmentIndex), let walkingStill = WalkingStateSegments(rawValue: activityState.selectedSegmentIndex) {
+            switch (openClose, walkingStill) {
+            case (.Open,.Walking):
+                filename = "samples_open_walking"
+            case (.Open,.Still):
+                filename = "samples_open_still"
+            case (.Close,.Walking):
+                filename = "samples_closed_walking"
+            case (.Close,.Still):
+                filename = "samples_closed_still"
+                
             }
         }
+        let dff = DateFormatter()
+        dff.dateFormat = "yyyyMMdd_HHmm"
+        filename = dff.string(from: Date()) + "_" + filename + ".csv"
+        
         emailCSVData(filename: filename)
     }
-        
+    
     @IBAction func clearData(_ sender: Any) {
         zipperSamples.clear()
-
+        
     }
     
     @IBOutlet weak var zipperState: UISegmentedControl!
+    @IBOutlet weak var activityState: UISegmentedControl!
     
     let mailVC = EmailComposer()
     let zipper = ZipperMeter()
     var zipperSamples = MeasurementSamples(maxSamples: Constants.maxSamples)
-   
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         zipper.delegate = self
         zipper.startMonitoring()
+        documentInteractionController.delegate = self
+        
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -75,26 +93,84 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
     
     func emailCSVData(filename: String) {
         let csv = zipperSamples.samplesAsCSVString()
-        if let filepath = filePath(filename: filename) as String? {
+        if let filepath = filePath(filename: filename) as URL? {
             do {
-                try csv.write(toFile: filepath, atomically: true, encoding: String.Encoding.utf8)
+                try csv.write(to: filepath, atomically: true, encoding: String.Encoding.utf8)
                 print("data saved to file")
-                let configuredMailVC = mailVC.configuredMailComposeViewController()
-                configuredMailVC.addAttachmentData(NSData.dataWithContentsOfMappedFile(filepath) as?
-                    NSData as! Data , mimeType: "text/csv", fileName: filename)
-                present(configuredMailVC, animated: true, completion: nil)
+                
+                //                let configuredMailVC = mailVC.configuredMailComposeViewController()
+                //                configuredMailVC.addAttachmentData(NSData.dataWithContentsOfMappedFile(filepath) as?
+                //                    NSData as! Data , mimeType: "text/csv", fileName: filename)
+                //                present(configuredMailVC, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    /// STOP YOUR ACTIVITY INDICATOR HERE
+                    self.share(url: (filepath as URL))
+                }
             } catch {
-               print("error writing to file")
+                print("error writing to file")
             }
+            
         }
-        
     }
     
-    func filePath(filename: String) -> NSString? {
-        return NSTemporaryDirectory().appendingFormat("\(filename)") as NSString
+    func filePath(filename: String) -> URL? {
+        if #available(iOS 10.0, *) {
+            return FileManager.default.temporaryDirectory
+                .appendingPathComponent(("\(filename)"))
+        } else {
+            return nil
+        }
     }
 
 
 
 }
 
+extension ViewController {
+    /// This function will set all the required properties, and then provide a preview for the document
+    func share(url: URL) {
+        documentInteractionController.url = url
+        documentInteractionController.uti = url.typeIdentifier ?? "public.data, public.content"
+        documentInteractionController.name = url.localizedName ?? url.lastPathComponent
+        documentInteractionController.presentPreview(animated: true)
+    }
+    
+    /// This function will store your document to some temporary URL and then provide sharing, copying, printing, saving options to the user
+    func storeAndShare(withURLString: String) {
+        guard let url = URL(string: withURLString) else { return }
+        /// START YOUR ACTIVITY INDICATOR HERE
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            let tmpURL = FileManager.default.temporaryDirectory
+                .appendingPathComponent(response?.suggestedFilename ?? "fileName.png")
+            do {
+                try data.write(to: tmpURL)
+            } catch {
+                print(error)
+            }
+            DispatchQueue.main.async {
+                /// STOP YOUR ACTIVITY INDICATOR HERE
+                self.share(url: tmpURL)
+            }
+            }.resume()
+    }
+}
+
+extension ViewController: UIDocumentInteractionControllerDelegate {
+    /// If presenting atop a navigation stack, provide the navigation controller in order to animate in a manner consistent with the rest of the platform
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        guard let navVC = self.navigationController else {
+            return self
+        }
+        return navVC
+    }
+}
+
+extension URL {
+    var typeIdentifier: String? {
+        return (try? resourceValues(forKeys: [.typeIdentifierKey]))?.typeIdentifier
+    }
+    var localizedName: String? {
+        return (try? resourceValues(forKeys: [.localizedNameKey]))?.localizedName
+    }
+}

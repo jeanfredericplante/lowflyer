@@ -140,6 +140,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityState" destination="vt1-54-qtJ" id="mpg-Ca-zmf"/>
                         <outlet property="magneticAmplitude" destination="JrT-lh-mSh" id="4OM-5x-fIt"/>
                         <outlet property="numberOfSamples" destination="iET-bj-I9T" id="TSq-7i-9wu"/>
                         <outlet property="zipperState" destination="PSG-Eo-e7j" id="XYI-qY-6lc"/>
