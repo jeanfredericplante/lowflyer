@@ -26,7 +26,7 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
     
     @IBOutlet weak var numberOfSamples: UILabel!
      struct Constants {
-        static let maxSamples = 1024
+        static let maxSamples = 16384
     }
     
     @IBAction func emailData(_ sender: Any) {
@@ -48,7 +48,7 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
         dff.dateFormat = "yyyyMMdd_HHmm"
         filename = dff.string(from: Date()) + "_" + filename + ".csv"
         
-        emailCSVData(filename: filename)
+        saveCSVfile(filename: filename)
     }
     
     @IBAction func clearData(_ sender: Any) {
@@ -91,19 +91,13 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
         print("Acc updated at \(zipper.accelerationSampleTime)")
     }
     
-    func emailCSVData(filename: String) {
+    func saveCSVfile(filename: String) {
         let csv = zipperSamples.samplesAsCSVString()
         if let filepath = filePath(filename: filename) as URL? {
             do {
                 try csv.write(to: filepath, atomically: true, encoding: String.Encoding.utf8)
                 print("data saved to file")
-                
-                //                let configuredMailVC = mailVC.configuredMailComposeViewController()
-                //                configuredMailVC.addAttachmentData(NSData.dataWithContentsOfMappedFile(filepath) as?
-                //                    NSData as! Data , mimeType: "text/csv", fileName: filename)
-                //                present(configuredMailVC, animated: true, completion: nil)
                 DispatchQueue.main.async {
-                    /// STOP YOUR ACTIVITY INDICATOR HERE
                     self.share(url: (filepath as URL))
                 }
             } catch {
@@ -132,28 +126,10 @@ extension ViewController {
         documentInteractionController.url = url
         documentInteractionController.uti = url.typeIdentifier ?? "public.data, public.content"
         documentInteractionController.name = url.localizedName ?? url.lastPathComponent
-        documentInteractionController.presentPreview(animated: true)
+        documentInteractionController.presentOptionsMenu(from: view.frame, in: view, animated: true)
+
     }
     
-    /// This function will store your document to some temporary URL and then provide sharing, copying, printing, saving options to the user
-    func storeAndShare(withURLString: String) {
-        guard let url = URL(string: withURLString) else { return }
-        /// START YOUR ACTIVITY INDICATOR HERE
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            let tmpURL = FileManager.default.temporaryDirectory
-                .appendingPathComponent(response?.suggestedFilename ?? "fileName.png")
-            do {
-                try data.write(to: tmpURL)
-            } catch {
-                print(error)
-            }
-            DispatchQueue.main.async {
-                /// STOP YOUR ACTIVITY INDICATOR HERE
-                self.share(url: tmpURL)
-            }
-            }.resume()
-    }
 }
 
 extension ViewController: UIDocumentInteractionControllerDelegate {
