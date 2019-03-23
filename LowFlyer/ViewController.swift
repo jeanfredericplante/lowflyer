@@ -11,7 +11,13 @@ import UIKit
 class ViewController: UIViewController, ZipperUpdateDelegate {
     let documentInteractionController = UIDocumentInteractionController()
 
+    @IBOutlet weak var drawLetters: UISwitch!
+    @IBOutlet weak var targetLetter: UITextField!
     
+   
+    @IBAction func editingEnd(_ sender: UITextField) {
+        sender.resignFirstResponder()
+    }
     enum ZipperStateSegments: Int {
         case Open = 0
         case Close = 1
@@ -31,21 +37,30 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
     
     @IBAction func emailData(_ sender: Any) {
         var filename: String = ""
-        if let openClose = ZipperStateSegments(rawValue: zipperState.selectedSegmentIndex), let walkingStill = WalkingStateSegments(rawValue: activityState.selectedSegmentIndex) {
-            switch (openClose, walkingStill) {
-            case (.Open,.Walking):
-                filename = "samples_open_walking"
-            case (.Open,.Still):
-                filename = "samples_open_still"
-            case (.Close,.Walking):
-                filename = "samples_closed_walking"
-            case (.Close,.Still):
-                filename = "samples_closed_still"
-                
+        if !drawLetters.isOn{
+            if let openClose = ZipperStateSegments(rawValue: zipperState.selectedSegmentIndex), let walkingStill = WalkingStateSegments(rawValue: activityState.selectedSegmentIndex) {
+                switch (openClose, walkingStill) {
+                case (.Open,.Walking):
+                    filename = "samples_open_walking"
+                case (.Open,.Still):
+                    filename = "samples_open_still"
+                case (.Close,.Walking):
+                    filename = "samples_closed_walking"
+                case (.Close,.Still):
+                    filename = "samples_closed_still"
+                    
+                }
+                }
+            
+        } else {
+            if let f = targetLetter.text {
+                filename = f
+            } else {
+                filename = "default_letter"
             }
         }
         let dff = DateFormatter()
-        dff.dateFormat = "yyyyMMdd_HHmm"
+        dff.dateFormat = "yyyyMMdd_HHmmss"
         filename = dff.string(from: Date()) + "_" + filename + ".csv"
         
         saveCSVfile(filename: filename)
@@ -55,7 +70,7 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
         zipperSamples.clear()
         
     }
-    
+ 
     @IBOutlet weak var zipperState: UISegmentedControl!
     @IBOutlet weak var activityState: UISegmentedControl!
     

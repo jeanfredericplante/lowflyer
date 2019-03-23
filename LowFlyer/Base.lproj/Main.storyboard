@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,8 +20,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLK-2y-npx">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RLK-2y-npx">
+                                <rect key="frame" x="0.0" y="52" width="375" height="734"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Magnetometer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPP-Rj-GPQ">
                                         <rect key="frame" x="8" y="8" width="211" height="21"/>
@@ -102,6 +101,27 @@
                                             <action selector="clearData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FbI-vl-cli"/>
                                         </connections>
                                     </button>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cTj-xi-6Io">
+                                        <rect key="frame" x="8" y="130" width="51" height="31"/>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Draw letters" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVx-Rq-dRn">
+                                        <rect key="frame" x="8" y="100.33333333333334" width="211" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="211" id="5N6-pD-BOH"/>
+                                            <constraint firstAttribute="height" constant="21" id="Dz9-NG-IO6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="A" borderStyle="roundedRect" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="gcC-lq-yrC">
+                                        <rect key="frame" x="81" y="131" width="34" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <connections>
+                                            <action selector="editingEnd:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="IbZ-OH-P03"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -116,16 +136,22 @@
                                     <constraint firstItem="oXM-5Q-iD6" firstAttribute="baseline" secondItem="iET-bj-I9T" secondAttribute="baseline" id="MIc-rA-tpb"/>
                                     <constraint firstItem="PSG-Eo-e7j" firstAttribute="leading" secondItem="SiS-lZ-xav" secondAttribute="leading" id="R9q-gQ-Bxn"/>
                                     <constraint firstItem="vt1-54-qtJ" firstAttribute="leading" secondItem="PSG-Eo-e7j" secondAttribute="leading" id="Sdp-IQ-5Wu"/>
+                                    <constraint firstItem="iVx-Rq-dRn" firstAttribute="top" secondItem="oXM-5Q-iD6" secondAttribute="bottom" constant="14" id="Ta8-1d-LSH"/>
                                     <constraint firstItem="iET-bj-I9T" firstAttribute="leading" secondItem="oXM-5Q-iD6" secondAttribute="trailing" constant="8" symbolic="YES" id="V7T-Sl-yzx"/>
+                                    <constraint firstItem="iVx-Rq-dRn" firstAttribute="leading" secondItem="RLK-2y-npx" secondAttribute="leading" constant="8" id="WYX-ex-lBh"/>
                                     <constraint firstItem="oXM-5Q-iD6" firstAttribute="top" secondItem="geS-mt-KRW" secondAttribute="bottom" constant="8" symbolic="YES" id="X0z-Ex-Cou"/>
                                     <constraint firstItem="QPP-Rj-GPQ" firstAttribute="top" secondItem="RLK-2y-npx" secondAttribute="topMargin" id="Zoq-A6-qvt"/>
+                                    <constraint firstItem="gcC-lq-yrC" firstAttribute="top" secondItem="iVx-Rq-dRn" secondAttribute="bottom" constant="9.6666666666666572" id="b8c-oo-TlF"/>
                                     <constraint firstItem="PSG-Eo-e7j" firstAttribute="bottom" secondItem="RLK-2y-npx" secondAttribute="bottomMargin" id="brt-sK-RKb"/>
                                     <constraint firstItem="oXM-5Q-iD6" firstAttribute="leading" secondItem="geS-mt-KRW" secondAttribute="leading" id="ePr-b6-68w"/>
                                     <constraint firstItem="SiS-lZ-xav" firstAttribute="top" secondItem="gxK-5B-f9t" secondAttribute="top" id="eWU-KL-gH8"/>
                                     <constraint firstItem="PSG-Eo-e7j" firstAttribute="leading" secondItem="oXM-5Q-iD6" secondAttribute="leading" id="fiS-L4-VOK"/>
                                     <constraint firstAttribute="trailing" secondItem="gxK-5B-f9t" secondAttribute="trailing" constant="14" id="hh1-jq-PiN"/>
+                                    <constraint firstItem="gcC-lq-yrC" firstAttribute="leading" secondItem="cTj-xi-6Io" secondAttribute="trailing" constant="24" id="lDC-4h-ZUj"/>
+                                    <constraint firstItem="cTj-xi-6Io" firstAttribute="leading" secondItem="iVx-Rq-dRn" secondAttribute="leading" id="nSJ-GW-hQ9"/>
                                     <constraint firstItem="geS-mt-KRW" firstAttribute="top" secondItem="QPP-Rj-GPQ" secondAttribute="bottom" constant="8" id="oaf-JK-iNA"/>
                                     <constraint firstItem="vt1-54-qtJ" firstAttribute="height" secondItem="PSG-Eo-e7j" secondAttribute="height" id="uB9-T7-6ya"/>
+                                    <constraint firstItem="cTj-xi-6Io" firstAttribute="top" secondItem="iVx-Rq-dRn" secondAttribute="bottom" constant="8.6666666666666572" id="v0b-ei-RGU"/>
                                     <constraint firstItem="SiS-lZ-xav" firstAttribute="firstBaseline" secondItem="gxK-5B-f9t" secondAttribute="baseline" id="v4m-EG-chb"/>
                                     <constraint firstItem="JrT-lh-mSh" firstAttribute="centerY" secondItem="geS-mt-KRW" secondAttribute="centerY" id="zIS-xe-UVE"/>
                                 </constraints>
@@ -141,8 +167,10 @@
                     </view>
                     <connections>
                         <outlet property="activityState" destination="vt1-54-qtJ" id="mpg-Ca-zmf"/>
+                        <outlet property="drawLetters" destination="cTj-xi-6Io" id="u5R-Oz-RGb"/>
                         <outlet property="magneticAmplitude" destination="JrT-lh-mSh" id="4OM-5x-fIt"/>
                         <outlet property="numberOfSamples" destination="iET-bj-I9T" id="TSq-7i-9wu"/>
+                        <outlet property="targetLetter" destination="gcC-lq-yrC" id="Wyp-6E-VbK"/>
                         <outlet property="zipperState" destination="PSG-Eo-e7j" id="XYI-qY-6lc"/>
                     </connections>
                 </viewController>
