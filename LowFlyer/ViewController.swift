@@ -63,6 +63,10 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
     let zipper = ZipperMeter()
     var zipperSamples = MeasurementSamples(maxSamples: Constants.maxSamples)
     
+    let detector = ZipperDetector()
+    var updateCounter = 0
+    var statusLabel: UILabel!
+    var debugLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,21 +74,86 @@ class ViewController: UIViewController, ZipperUpdateDelegate {
         zipper.startMonitoring()
         documentInteractionController.delegate = self
         
+        setupStatusLabel()
         
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    func setupStatusLabel() {
+        statusLabel = UILabel()
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.textAlignment = .center
+        statusLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        statusLabel.text = "Waiting for data..."
+        self.view.addSubview(statusLabel)
+
+        debugLabel = UILabel()
+        debugLabel.translatesAutoresizingMaskIntoConstraints = false
+        debugLabel.textAlignment = .center
+        debugLabel.font = UIFont.systemFont(ofSize: 12)
+        debugLabel.numberOfLines = 0
+        self.view.addSubview(debugLabel)
+
+        // Basic layout (centered, bottom)
+        if #available(iOS 9.0, *) {
+            NSLayoutConstraint.activate([
+                statusLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                statusLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100),
+                statusLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -40),
+
+                debugLabel.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 10),
+                debugLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                debugLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -40)
+            ])
+        } else {
+            // Fallback for older iOS if needed, but assuming iOS 9+ for anchors
+            statusLabel.frame = CGRect(x: 20, y: self.view.bounds.height - 150, width: self.view.bounds.width - 40, height: 50)
+            debugLabel.frame = CGRect(x: 20, y: self.view.bounds.height - 100, width: self.view.bounds.width - 40, height: 80)
+        }
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func didUpdateMagneticField() {
-        magneticAmplitude?.text = zipper.magneticAmplitude.description
+        magneticAmplitude?.text = String(format: "%.2f", zipper.magneticAmplitude)
         zipperSamples.add(value: zipper.measurementRow)
         numberOfSamples.text = zipperSamples.count.description
-        print("magnitude updated at  \(zipper.magneticSampleTime)")
+        // print("magnitude updated at  \(zipper.magneticSampleTime)")
         
+        updateCounter += 1
+        if updateCounter % 30 == 0 { // Every ~1 second
+            performDetection()
+        }
+    }
+
+    func performDetection() {
+        // magneticAmplitude is at index 1 in measurementRow: [tm, ma, mx, my, mz, ...]
+        // We need to extract this column.
+        let magneticMagnitudes = zipperSamples.getColumn(index: 1)
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            let result = self.detector.detect(samples: magneticMagnitudes)
+
+            DispatchQueue.main.async {
+                if result.fundamentalFreq == 0 {
+                    self.statusLabel.text = "Insufficient Data"
+                    self.statusLabel.textColor = .gray
+                    self.debugLabel.text = "Collecting samples..."
+                } else {
+                    if result.isOpen {
+                        self.statusLabel.text = "ZIPPER OPEN!"
+                        self.statusLabel.textColor = .red
+                    } else {
+                        self.statusLabel.text = "Zipper Closed"
+                        self.statusLabel.textColor = .green
+                    }
+                    self.debugLabel.text = String(format: "Freq: %.1fHz, Ratio: %.2f", result.fundamentalFreq, result.ratio)
+                }
+            }
+        }
     }
     
     func didUpdateAccelerationField() {

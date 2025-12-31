@@ -52,6 +52,10 @@ class MeasurementSamples {
         let csv_row = a.map({"\($0)"}).joined(separator: s)
         return csv_row
     }
+
+    func getColumn(index: Int) -> [Double] {
+        return samples.map { $0.count > index ? $0[index] : 0.0 }
+    }
    
     
 }
